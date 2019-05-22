@@ -5,7 +5,7 @@ pipeline {
 
          stage ('Unit Tests') {
             steps {
-                sh """
+                bat """
 
                     pytest
                 """
