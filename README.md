@@ -1,11 +1,13 @@
-#SCM_SysInfo
+# SCM_SysInfo
 
 ##Description
+
 Software configuration management service (SCM)
 
 The goal of this project is to set up a software configuration management environment based on Git, Redmine and Jenkins. We wish to integrate a system that runs unit tests of an application, computes metrics and publish reports. It concerns people who knows about System Configuration Management techniques as well as people who have interest in IT, no related knowledge of the subject but wants to discover this area.
 
 ##Requirements
+
 -   An installation of Jenkins
 https://jenkins.io/download/
 
@@ -15,7 +17,8 @@ https://jenkins.io/download/
 
 -   Sonnar-scanner 2.6.1 https://www.dropbox.com/s/z5uacmxr7uyrf45/sonar-scanner-2.6.1.zip?dl=0
 
-##Building & Running
+Building & Running
+===
 On Redmine:
 1.  In git bash, change directory to your Redmine location,the command is :
 
@@ -33,7 +36,8 @@ On Jenkins:
     -   Another one for SonarQube
 2.  Create a pipeline on Jenkins linked with our git repository
 
-##Usage
+Usage
+===
 
 On Redmine:
 1.  Sign in bitnami (top right) 
@@ -63,5 +67,6 @@ On Jenkins:
     You can analyse and see some metrics
 
 ##Github repository
+
 https://github.com/yassine-dridi/SCM_SysInfo.git
 
