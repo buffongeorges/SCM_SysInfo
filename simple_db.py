@@ -2,80 +2,80 @@ import sqlite3
 
 
 def create_database():
-    conn = sqlite3.connect("mydatabase.db")
+    conn = sqlite3.connect("employees.db")
     cursor = conn.cursor()
 
     # create a table
-    cursor.execute("""CREATE TABLE albums
-                          (title text, artist text, release_date text,
-                           publisher text, media_type text)
+    cursor.execute("""CREATE TABLE employees
+                          (name text, position text, arrival_date text,
+                           service text, salary text)
                        """)
     # insert some data
-    cursor.execute("INSERT INTO albums VALUES "
-                   "('Glow', 'Andy Hunter', '7/24/2012',"
-                   "'Xplore Records', 'MP3')")
+    cursor.execute("INSERT INTO employees VALUES "
+                   "('Dupont', 'engineer', '7/24/2012',"
+                   "'DSI', '2000')")
 
     # save data to database
     conn.commit()
 
     # insert multiple records using the more secure "?" method
-    albums = [('Exodus', 'Andy Hunter', '7/9/2002',
-               'Sparrow Records', 'CD'),
-              ('Until We Have Faces', 'Red', '2/1/2011',
-               'Essential Records', 'CD'),
-              ('The End is Where We Begin', 'Thousand Foot Krutch',
-               '4/17/2012', 'TFKmusic', 'CD'),
-              ('The Good Life', 'Trip Lee', '4/10/2012',
-               'Reach Records', 'CD')]
-    cursor.executemany("INSERT INTO albums VALUES (?,?,?,?,?)",
-                       albums)
+    employees = [('Deghdegh', 'HR', '7/9/2002',
+               'HR', '3000'),
+              ('Dridi', 'CISO', '2/1/2011',
+               'DSI', '100'),
+              ('Zhu', 'HR',
+               '4/17/2012', 'HR', '2000'),
+              ('Firpion', 'DSI', '4/10/2012',
+               'engineer', '3000')]
+    cursor.executemany("INSERT INTO employees VALUES (?,?,?,?,?)",
+                       employees)
     conn.commit()
 
 
-def delete_artist(artist):
+def delete_position(position):
     """
-    Delete an artist from the database
+    Delete an position from the database
     """
-    conn = sqlite3.connect("mydatabase.db")
+    conn = sqlite3.connect("employees.db")
     cursor = conn.cursor()
 
     sql = """
-    DELETE FROM albums
-    WHERE artist = ?
+    DELETE FROM employees
+    WHERE position = ?
     """
-    cursor.execute(sql, [(artist)])
+    cursor.execute(sql, [(position)])
     conn.commit()
     cursor.close()
     conn.close()
 
 
-def update_artist(artist, new_name):
+def update_position(position, new_position):
     """
-    Update the artist name
+    Update the position name
     """
-    conn = sqlite3.connect("mydatabase.db")
+    conn = sqlite3.connect("employees.db")
     cursor = conn.cursor()
 
     sql = """
-    UPDATE albums
-    SET artist = ?
-    WHERE artist = ?
+    UPDATE employees
+    SET position = ?
+    WHERE position = ?
     """
-    cursor.execute(sql, (new_name, artist))
+    cursor.execute(sql, (new_position, position))
     conn.commit()
     cursor.close()
     conn.close()
 
 
-def select_all_albums(artist):
+def select_all_employees(position):
     """
-    Query the database for all the albums by a particular artist
+    Query the database for all the employees by a particular position
     """
-    conn = sqlite3.connect("mydatabase.db")
+    conn = sqlite3.connect("employees.db")
     cursor = conn.cursor()
 
-    sql = "SELECT * FROM albums WHERE artist=?"
-    cursor.execute(sql, [(artist)])
+    sql = "SELECT * FROM employees WHERE position=?"
+    cursor.execute(sql, [(position)])
     result = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -85,9 +85,9 @@ def select_all_albums(artist):
 if __name__ == '__main__':
     import os
 
-    if not os.path.exists("mydatabase.db"):
+    if not os.path.exists("employees.db"):
         create_database()
 
-    delete_artist('Andy Hunter')
-    update_artist('Red', 'Redder')
-    print(select_all_albums('Thousand Foot Krutch'))
+    delete_position('HR')
+    update_position('HR', 'DIRECTOR')
+    print(select_all_employees('CEO'))

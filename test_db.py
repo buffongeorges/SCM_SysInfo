@@ -13,54 +13,54 @@ class TestMusicDatabase(unittest.TestCase):
         """
         Setup a temporary database
         """
-        conn = sqlite3.connect("mydatabase.db")
+        conn = sqlite3.connect("employees.db")
         cursor = conn.cursor()
 
         # create a table
-        cursor.execute("""CREATE TABLE albums
-                          (title text, artist text, release_date text,
-                           publisher text, media_type text)
-                       """)
+        cursor.execute("""CREATE TABLE employees
+                                 (name text, position text, arrival_date text,
+                                  service text, salary text)
+                              """)
         # insert some data
-        cursor.execute("INSERT INTO albums VALUES "
-                       "('Glow', 'Andy Hunter', '7/24/2012',"
-                       "'Xplore Records', 'MP3')")
+        cursor.execute("INSERT INTO employees VALUES "
+                       "('Dupont', 'engineer', '7/24/2012',"
+                       "'DSI', '2000')")
 
         # save data to database
         conn.commit()
 
         # insert multiple records using the more secure "?" method
-        albums = [('Exodus', 'Andy Hunter', '7/9/2002',
-                   'Sparrow Records', 'CD'),
-                  ('Until We Have Faces', 'Red', '2/1/2011',
-                   'Essential Records', 'CD'),
-                  ('The End is Where We Begin', 'Thousand Foot Krutch',
-                   '4/17/2012', 'TFKmusic', 'CD'),
-                  ('The Good Life', 'Trip Lee', '4/10/2012',
-                   'Reach Records', 'CD')]
-        cursor.executemany("INSERT INTO albums VALUES (?,?,?,?,?)",
-                           albums)
+        employees = [('Deghdegh', 'HR', '7/9/2002',
+                      'HR', '3000'),
+                     ('Dridi', 'CISO', '2/1/2011',
+                      'DSI', '100'),
+                     ('Zhu', 'HR2',
+                      '4/17/2012', 'HR1', '2000'),
+                     ('Firpion', 'DSI', '4/10/2012',
+                      'engineer', '3000')]
+        cursor.executemany("INSERT INTO employees VALUES (?,?,?,?,?)",
+                           employees)
         conn.commit()
 
     def tearDown(self):
         """
         Delete the database
         """
-        os.remove("mydatabase.db")
+        os.remove("employees.db")
 
 
     def test_updating_artist(self):
         """
         Tests that we can successfully update an artist's name
         """
-        simple_db.update_artist('Red', 'Redder')
-        actual = simple_db.select_all_albums('Redder')
-        expected = [('Until We Have Faces', 'Redder',
-                     '2/1/2011', 'Essential Records', 'CD')]
+        simple_db.update_position('HR', 'DIRECTOR')
+        actual = simple_db.select_all_employees('DIRECTOR')
+        expected = [('Deghdegh', 'DIRECTOR', '7/9/2002',
+                      'HR', '3000')]
         self.assertListEqual(expected, actual)
 
 
     def test_artist_does_not_exist(self):
 
-        result = simple_db.select_all_albums('Redder')
+        result = simple_db.select_all_employees('DIRECTOR')
         self.assertFalse(result)
