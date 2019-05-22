@@ -29,3 +29,4 @@ Check the box and save
 
 Then proceed to "repositories" tab at the top 
 
+![alt text](Capture_redmine.PNG)
