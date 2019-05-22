@@ -27,5 +27,5 @@ then paste the local path to the git, in my case it was C:\Bitnami\redmine-4.0.3
 
 Check the box and save
 
-
+Then proceed to "repositories" tab at the top 
 
