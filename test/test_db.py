@@ -1,5 +1,5 @@
 import os
-import simple_db
+from application import simple_db
 import sqlite3
 import unittest
 
